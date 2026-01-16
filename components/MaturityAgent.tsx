@@ -5,7 +5,7 @@ import { Message, MaturityResult } from '../types';
 
 const MaturityAgent: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'model', text: 'Systeem NexusData v2.5 Flash online. Ik ben uw Senior AI Auditor.\n\nOm uw datavolwassenheid te bepalen en AI-kansen te identificeren, begin ik graag bij de kern: Hoe zijn binnen uw organisatie de belangrijkste KPI’s (kritieke prestatie-indicatoren) momenteel gedefinieerd en hoe worden deze vastgelegd?' }
+    { role: 'model', text: 'Systeem Deux2Qonnect v2.5 Flash online. Ik ben uw Senior AI Auditor.\n\nOm uw datavolwassenheid te bepalen en AI-kansen te identificeren, begin ik graag bij de kern: Hoe zijn binnen uw organisatie de belangrijkste KPI’s (kritieke prestatie-indicatoren) momenteel gedefinieerd en hoe worden deze vastgelegd?' }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -53,7 +53,7 @@ const MaturityAgent: React.FC = () => {
       if (err.message === "API_KEY_MISSING") {
         setError("Systeemfout: De API_KEY is niet geladen. Ga naar Vercel Settings -> Environment Variables, controleer de sleutel 'API_KEY', en klik daarna op 'Redeploy' bij je laatste build.");
       } else {
-        setError("Verbindingsfout met de NexusData Engine. Controleer uw internetverbinding of de status van de API.");
+        setError("Verbindingsfout met de Deux2Qonnect Engine. Controleer uw internetverbinding of de status van de API.");
       }
     }
   };
@@ -64,12 +64,12 @@ const MaturityAgent: React.FC = () => {
         <div className="grid lg:grid-cols-12 gap-16 items-start">
           <div className="lg:col-span-5 space-y-10">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black tracking-widest uppercase mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-[#00a3ff] text-[10px] font-black tracking-widest uppercase mb-6">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00a3ff] animate-pulse"></span>
                 AI Diagnostic Unit
               </div>
               <h3 className="text-5xl md:text-6xl font-heading font-bold text-white mb-8 leading-[1.1]">
-                Bepaal uw <span className="text-emerald-400">Data DNA</span>.
+                Bepaal uw <span className="text-gradient">Data DNA</span>.
               </h3>
               <p className="text-slate-400 text-lg leading-relaxed font-medium">
                 Onze AI Auditor analyseert in maximaal 7 vragen hoe uw organisatie scoort op het gebied van data-volwassenheid en waar de grootste AI-kansen liggen.
@@ -82,8 +82,8 @@ const MaturityAgent: React.FC = () => {
                  { t: "Flow Validatie", d: "Waar stokt de informatievoorziening?" },
                  { t: "AI Readiness", d: "Bent u klaar voor autonome agents?" }
                ].map((item, i) => (
-                 <div key={i} className="flex gap-5 p-4 rounded-2xl bg-white/5 border border-white/5 group hover:border-emerald-500/30 transition-all">
-                   <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 font-bold group-hover:scale-110 transition-transform shrink-0">
+                 <div key={i} className="flex gap-5 p-4 rounded-2xl bg-white/5 border border-white/5 group hover:border-indigo-500/30 transition-all">
+                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00a3ff] to-[#7b2ff7] flex items-center justify-center text-white font-bold group-hover:scale-110 transition-transform shrink-0">
                      0{i+1}
                    </div>
                    <div>
@@ -102,14 +102,14 @@ const MaturityAgent: React.FC = () => {
                   <div className="flex gap-1.5">
                     <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
                     <div className="w-3 h-3 rounded-full bg-amber-500/50"></div>
-                    <div className="w-3 h-3 rounded-full bg-emerald-500/50"></div>
+                    <div className="w-3 h-3 rounded-full bg-indigo-500/50"></div>
                   </div>
                   <div className="h-4 w-px bg-white/10 mx-2"></div>
                   <div className="flex flex-col">
                     <span className="text-[10px] font-black tracking-[0.3em] text-slate-400 uppercase leading-none mb-1">AUDIT_SESSION_v2.5_FLASH</span>
                     <div className="flex items-center gap-1.5">
-                      <span className="text-[8px] font-bold text-emerald-500/50 uppercase tracking-widest">ENGINE:</span>
-                      <span className="px-1.5 py-0.5 bg-emerald-500 text-slate-950 text-[8px] font-black rounded-sm uppercase tracking-tighter shadow-[0_0_10px_rgba(16,185,129,0.5)]">
+                      <span className="text-[8px] font-bold text-slate-500 uppercase tracking-widest">ENGINE:</span>
+                      <span className="px-1.5 py-0.5 bg-gradient-to-r from-[#00a3ff] to-[#7b2ff7] text-white text-[8px] font-black rounded-sm uppercase tracking-tighter shadow-lg shadow-indigo-500/30">
                         {GEMINI_MODEL}
                       </span>
                     </div>
@@ -120,7 +120,7 @@ const MaturityAgent: React.FC = () => {
                     <span className="text-[10px] font-bold text-slate-500 uppercase">Voortgang</span>
                     <div className="w-32 h-1.5 bg-slate-800 rounded-full overflow-hidden">
                       <div 
-                        className="h-full bg-emerald-500 transition-all duration-500" 
+                        className="h-full bg-gradient-to-r from-[#00a3ff] to-[#7b2ff7] transition-all duration-500" 
                         style={{ width: `${(currentStep / 7) * 100}%` }}
                       ></div>
                     </div>
@@ -133,7 +133,7 @@ const MaturityAgent: React.FC = () => {
                   <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                     <div className={`max-w-[85%] p-5 rounded-2xl ${
                       m.role === 'user' 
-                      ? 'bg-emerald-500 text-slate-950 font-bold shadow-lg rounded-tr-none' 
+                      ? 'bg-gradient-to-r from-[#00a3ff] to-[#7b2ff7] text-white font-bold shadow-lg rounded-tr-none' 
                       : 'bg-slate-900/80 text-slate-200 border border-white/5 leading-relaxed font-medium rounded-tl-none backdrop-blur-sm'
                     }`}>
                       <p className="text-sm md:text-base whitespace-pre-wrap">{m.text}</p>
@@ -145,11 +145,11 @@ const MaturityAgent: React.FC = () => {
                   <div className="flex justify-start">
                     <div className="bg-slate-900/50 px-6 py-4 rounded-2xl border border-white/10 flex flex-col gap-3">
                       <div className="flex gap-2">
-                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce"></div>
-                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce delay-150"></div>
-                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce delay-300"></div>
+                        <div className="w-2 h-2 rounded-full bg-[#00a3ff] animate-bounce"></div>
+                        <div className="w-2 h-2 rounded-full bg-[#7b2ff7] animate-bounce delay-150"></div>
+                        <div className="w-2 h-2 rounded-full bg-indigo-500 animate-bounce delay-300"></div>
                       </div>
-                      <span className="text-[8px] font-black text-emerald-400 uppercase tracking-[0.2em] animate-pulse">Engine Reasoning...</span>
+                      <span className="text-[8px] font-black text-indigo-400 uppercase tracking-[0.2em] animate-pulse">Engine Reasoning...</span>
                     </div>
                   </div>
                 )}
@@ -162,28 +162,28 @@ const MaturityAgent: React.FC = () => {
                 )}
 
                 {result && (
-                  <div className="p-8 bg-emerald-500 rounded-[2rem] text-slate-950 animate-in zoom-in duration-500 shadow-2xl mt-10">
+                  <div className="p-8 bg-gradient-to-br from-[#00a3ff] to-[#7b2ff7] rounded-[2rem] text-white animate-in zoom-in duration-500 shadow-2xl mt-10">
                     <div className="flex flex-col sm:flex-row items-center gap-8 mb-10">
-                      <div className="text-7xl font-heading font-black bg-slate-950 text-emerald-400 w-28 h-28 rounded-3xl flex items-center justify-center shadow-2xl shrink-0 rotate-3">
+                      <div className="text-7xl font-heading font-black bg-white text-[#7b2ff7] w-28 h-28 rounded-3xl flex items-center justify-center shadow-2xl shrink-0 rotate-3">
                         {result.level}
                       </div>
                       <div className="text-center sm:text-left">
                         <h4 className="text-3xl font-black uppercase tracking-tighter leading-none mb-1">{result.label}</h4>
-                        <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-60">Nexus Maturity Score</p>
+                        <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80">Deux2Qonnect Maturity Score</p>
                       </div>
                     </div>
                     
-                    <div className="bg-slate-950/10 p-5 rounded-xl mb-8 border border-slate-950/5">
+                    <div className="bg-white/10 p-5 rounded-xl mb-8 border border-white/10">
                       <p className="font-bold text-lg leading-relaxed">
                         "{result.description}"
                       </p>
                     </div>
 
                     <div className="space-y-4 mb-10">
-                      <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-50">Strategische Aanbevelingen</p>
+                      <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-80">Strategische Aanbevelingen</p>
                       {result.recommendations.map((rec, i) => (
-                        <div key={i} className="flex gap-4 text-sm font-bold items-start bg-slate-950/5 p-3 rounded-lg">
-                          <span className="bg-slate-950 text-emerald-400 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-[10px] mt-0.5">{i+1}</span>
+                        <div key={i} className="flex gap-4 text-sm font-bold items-start bg-white/10 p-3 rounded-lg border border-white/5">
+                          <span className="bg-white text-[#7b2ff7] w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-[10px] mt-0.5 font-black">{i+1}</span>
                           <span>{rec}</span>
                         </div>
                       ))}
@@ -191,7 +191,7 @@ const MaturityAgent: React.FC = () => {
 
                     <button 
                       onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} 
-                      className="w-full py-5 bg-slate-950 text-white font-black rounded-xl hover:bg-slate-900 transition-all flex items-center justify-center gap-4 text-lg shadow-2xl group"
+                      className="w-full py-5 bg-white text-[#7b2ff7] font-black rounded-xl hover:bg-slate-100 transition-all flex items-center justify-center gap-4 text-lg shadow-2xl group"
                     >
                       PLAN IMPACT SESSIE
                       <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
@@ -209,20 +209,20 @@ const MaturityAgent: React.FC = () => {
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
                       placeholder={isTyping ? "Auditor analyseert..." : "Typ uw antwoord..."}
-                      className="flex-1 bg-slate-950/80 border border-white/10 rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-emerald-500/50 transition-all font-medium placeholder:text-slate-700"
+                      className="flex-1 bg-slate-950/80 border border-white/10 rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-indigo-500/50 transition-all font-medium placeholder:text-slate-700"
                       disabled={isTyping}
                     />
                     <button
                       type="submit"
                       disabled={isTyping || !input.trim()}
-                      className="bg-emerald-500 text-slate-950 px-8 py-5 rounded-2xl font-black hover:bg-emerald-400 transition-all active:scale-95 disabled:opacity-20 flex items-center justify-center"
+                      className="bg-gradient-to-r from-[#00a3ff] to-[#7b2ff7] text-white px-8 py-5 rounded-2xl font-black hover:opacity-90 transition-all active:scale-95 disabled:opacity-20 flex items-center justify-center"
                     >
                       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
                     </button>
                   </form>
                   <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 opacity-30">
-                    <span className="text-[7px] font-bold text-slate-500 uppercase tracking-[0.2em]">Powered by Nexus Intelligence Engine</span>
-                    <span className="text-[7px] font-black text-emerald-500 uppercase tracking-widest">{GEMINI_MODEL}</span>
+                    <span className="text-[7px] font-bold text-slate-500 uppercase tracking-[0.2em]">Powered by Deux2Qonnect Intelligence Engine</span>
+                    <span className="text-[7px] font-black text-indigo-500 uppercase tracking-widest">{GEMINI_MODEL}</span>
                   </div>
                 </div>
               )}

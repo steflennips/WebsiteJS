@@ -6,7 +6,7 @@ import { Message } from "../types";
 export const GEMINI_MODEL = 'gemini-2.5-flash';
 
 const SYSTEM_INSTRUCTION = `
-Je bent de "NexusData Senior Auditor". Jouw doel is om de datavolwassenheid van een MKB-bedrijf te bepalen.
+Je bent de "Deux2Qonnect Senior Auditor". Jouw doel is om de datavolwassenheid van een MKB-bedrijf te bepalen.
 Blijf strikt in je rol. Praat niet over andere zaken dan datavolwassenheid en AI-readiness.
 
 PROTOCOLAIRE VEREISTEN:
@@ -26,14 +26,14 @@ MATURITY LEVELS:
 4. Strategic: Data-integratie is onderdeel van de strategie, voorspellende analyses beginnen.
 5. Innovative: AI-gedreven organisatie, real-time optimalisatie, data is de motor van groei.
 
-Begin het gesprek professioneel: introduceer jezelf kort als de NexusData Auditor en stel direct de eerste scherpe vraag over de KPI's van het bedrijf.
+Begin het gesprek professioneel: introduceer jezelf kort als de Deux2Qonnect Auditor en stel direct de eerste scherpe vraag over de KPI's van het bedrijf.
 `;
 
 export async function chatWithAgent(history: Message[], userInput: string) {
   const apiKey = process.env.API_KEY;
   
   if (!apiKey || apiKey === "undefined" || apiKey === "") {
-    console.error("NexusData Runtime Error: API_KEY is niet gevonden in de client-omgeving.");
+    console.error("Deux2Qonnect Runtime Error: API_KEY is niet gevonden in de client-omgeving.");
     throw new Error("API_KEY_MISSING");
   }
 
@@ -57,10 +57,10 @@ export async function chatWithAgent(history: Message[], userInput: string) {
     });
 
     const text = response.text;
-    if (!text) throw new Error("Geen antwoord ontvangen van de Nexus Engine.");
+    if (!text) throw new Error("Geen antwoord ontvangen van de Deux2Qonnect Engine.");
     return text;
   } catch (error: any) {
-    console.error("NexusData Engine API Failure:", error);
+    console.error("Deux2Qonnect Engine API Failure:", error);
     throw error;
   }
 }

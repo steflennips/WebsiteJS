@@ -2,14 +2,15 @@
 import { GoogleGenAI } from "@google/genai";
 import { Message } from "../types";
 
-export const GEMINI_MODEL = 'gemini-3-flash-preview';
+// Switch naar de krachtige en snelle Gemini 2.5 Flash engine.
+export const GEMINI_MODEL = 'gemini-2.5-flash';
 
 const SYSTEM_INSTRUCTION = `
 Je bent de "NexusData Senior Auditor". Jouw doel is om de datavolwassenheid van een MKB-bedrijf te bepalen.
 Blijf strikt in je rol. Praat niet over andere zaken dan datavolwassenheid en AI-readiness.
 
 PROTOCOLAIRE VEREISTEN:
-1. Je stelt maximaal 7 vragen in totaal. Wees efficiënt. Maar stel 1 vraag per keer
+1. Je stelt maximaal 7 vragen in totaal. Wees efficiënt. Maar stel 1 vraag per keer.
 2. Je MOET informatie verzamelen over deze 3 pijlers:
    - KPI's: Hoe zijn meetwaarden gedefinieerd en worden ze handmatig of automatisch vastgelegd?
    - TOOLS & FLOW: Welke software wordt gebruikt (Excel, BI, ERP) en hoe vloeit data door het bedrijf?
@@ -50,6 +51,8 @@ export async function chatWithAgent(history: Message[], userInput: string) {
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
         temperature: 0.7,
+        // Gemini 2.5 ondersteunt thinking voor geavanceerde redenatie.
+        thinkingConfig: { thinkingBudget: 12000 }
       },
     });
 

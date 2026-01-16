@@ -5,7 +5,7 @@ import { Message, MaturityResult } from '../types';
 
 const MaturityAgent: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'model', text: 'Systeem NexusData v3.0 online. Ik ben uw Senior AI Auditor.\n\nOm uw datavolwassenheid te bepalen en AI-kansen te identificeren, begin ik graag bij de kern: Hoe zijn binnen uw organisatie de belangrijkste KPI’s (kritieke prestatie-indicatoren) momenteel gedefinieerd en hoe worden deze vastgelegd?' }
+    { role: 'model', text: 'Systeem NexusData v2.5 Flash online. Ik ben uw Senior AI Auditor.\n\nOm uw datavolwassenheid te bepalen en AI-kansen te identificeren, begin ik graag bij de kern: Hoe zijn binnen uw organisatie de belangrijkste KPI’s (kritieke prestatie-indicatoren) momenteel gedefinieerd en hoe worden deze vastgelegd?' }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -106,8 +106,13 @@ const MaturityAgent: React.FC = () => {
                   </div>
                   <div className="h-4 w-px bg-white/10 mx-2"></div>
                   <div className="flex flex-col">
-                    <span className="text-[10px] font-black tracking-[0.3em] text-slate-500 uppercase">AUDIT_SESSION_v3.0</span>
-                    <span className="text-[8px] font-bold text-emerald-500/60 uppercase tracking-widest mt-0.5">ENGINE: {GEMINI_MODEL}</span>
+                    <span className="text-[10px] font-black tracking-[0.3em] text-slate-400 uppercase leading-none mb-1">AUDIT_SESSION_v2.5_FLASH</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[8px] font-bold text-emerald-500/50 uppercase tracking-widest">ENGINE:</span>
+                      <span className="px-1.5 py-0.5 bg-emerald-500 text-slate-950 text-[8px] font-black rounded-sm uppercase tracking-tighter shadow-[0_0_10px_rgba(16,185,129,0.5)]">
+                        {GEMINI_MODEL}
+                      </span>
+                    </div>
                   </div>
                 </div>
                 {!result && (
@@ -138,10 +143,13 @@ const MaturityAgent: React.FC = () => {
                 
                 {isTyping && (
                   <div className="flex justify-start">
-                    <div className="bg-slate-900/50 px-6 py-4 rounded-2xl border border-white/10 flex gap-2">
-                      <div className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce"></div>
-                      <div className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce delay-150"></div>
-                      <div className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce delay-300"></div>
+                    <div className="bg-slate-900/50 px-6 py-4 rounded-2xl border border-white/10 flex flex-col gap-3">
+                      <div className="flex gap-2">
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce"></div>
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce delay-150"></div>
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce delay-300"></div>
+                      </div>
+                      <span className="text-[8px] font-black text-emerald-400 uppercase tracking-[0.2em] animate-pulse">Engine Reasoning...</span>
                     </div>
                   </div>
                 )}

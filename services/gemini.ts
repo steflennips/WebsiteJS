@@ -1,8 +1,6 @@
 
-import { GoogleGenAI, Type } from "@google/genai";
+import { GoogleGenAI } from "@google/genai";
 import { Message } from "../types";
-
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
 
 const SYSTEM_INSTRUCTION = `
 Je bent de "NexusData Maturity Expert". Je doel is om het datavolwassenheidsniveau van een MKB-bedrijf te bepalen.
@@ -31,7 +29,9 @@ Begin het gesprek vriendelijk en stel de eerste vraag.
 
 export async function chatWithAgent(history: Message[], userInput: string) {
   try {
-    // We use generateContent with history to maintain context
+    // Initialiseer de AI client binnen de functie om zeker te zijn van de API key beschikbaarheid
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+    
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: [
@@ -51,7 +51,7 @@ export async function chatWithAgent(history: Message[], userInput: string) {
   } catch (error: any) {
     console.error("Gemini API Error:", error);
     if (error?.message?.includes("Requested entity was not found")) {
-       return "Fout: Het model 'gemini-2.5-flash' kon niet worden gevonden. Controleer de API-toegang.";
+       return "Fout: Het model 'gemini-2.5-flash' kon niet worden gevonden. Controleer of de API-key toegang heeft tot dit specifieke model.";
     }
     return "Excuses, er ging iets mis bij het verbinden met de AI agent. Probeer het later opnieuw.";
   }

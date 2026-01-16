@@ -28,19 +28,13 @@ Begin het gesprek vriendelijk en stel de eerste vraag.
 `;
 
 export async function chatWithAgent(history: Message[], userInput: string) {
-  // Check of de API key überhaupt aanwezig is in de omgeving
-  const apiKey = process.env.API_KEY;
-  
-  if (!apiKey) {
-    return "Configuratie-fout: De API_KEY ontbreekt in de Vercel Environment Variables. Voeg deze toe in je Vercel dashboard.";
-  }
-
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    // We gebruiken direct process.env.API_KEY zoals voorgeschreven.
+    // De GoogleGenAI SDK zal een fout gooien als de key niet geldig is.
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
     
-    // Gebruik de volledige modelnaam voor de 2.5 Flash preview
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash-preview-09-2025', 
+      model: 'gemini-3-flash-preview', 
       contents: [
         ...history.map(m => ({ 
           role: m.role, 
@@ -54,27 +48,15 @@ export async function chatWithAgent(history: Message[], userInput: string) {
       },
     });
 
-    if (!response || !response.text) {
-      return "De AI gaf een leeg antwoord terug. Probeer een andere vraag.";
-    }
-
-    return response.text;
+    return response.text || "Geen reactie ontvangen van de AI.";
   } catch (error: any) {
-    console.error("Gemini API Detail Error:", error);
+    console.error("Gemini API Error:", error);
     
-    // Specifieke foutmeldingen op basis van de error van Google
-    const msg = error?.message || "";
+    const errorMsg = error?.message || "";
+    if (errorMsg.includes("API key not valid")) {
+      return "Fout: De API-key is ongeldig. Controleer de instellingen in Vercel.";
+    }
     
-    if (msg.includes("404") || msg.includes("not found")) {
-      return "Fout: Het model 'gemini-2.5-flash-preview' is niet beschikbaar of de naam is onjuist.";
-    }
-    if (msg.includes("403") || msg.includes("permission")) {
-      return "Toegang geweigerd: Je API-key heeft geen rechten voor dit model of je regio is beperkt.";
-    }
-    if (msg.includes("401") || msg.includes("API key not valid")) {
-      return "Ongeldige API-key: Controleer de key in je Vercel instellingen.";
-    }
-
-    return `Er ging iets mis bij de verbinding: ${msg.substring(0, 100)}...`;
+    return "Excuses, er ging iets mis bij het verbinden met de AI agent. Zorg ervoor dat de site opnieuw is gedeployed na het toevoegen van de API_KEY.";
   }
 }

@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { chatWithAgent } from '../services/gemini';
+import { chatWithAgent, GEMINI_MODEL } from '../services/gemini';
 import { Message, MaturityResult } from '../types';
 
 const MaturityAgent: React.FC = () => {
@@ -105,7 +105,10 @@ const MaturityAgent: React.FC = () => {
                     <div className="w-3 h-3 rounded-full bg-emerald-500/50"></div>
                   </div>
                   <div className="h-4 w-px bg-white/10 mx-2"></div>
-                  <span className="text-[10px] font-black tracking-[0.3em] text-slate-500 uppercase">AUDIT_SESSION_v3.0</span>
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-black tracking-[0.3em] text-slate-500 uppercase">AUDIT_SESSION_v3.0</span>
+                    <span className="text-[8px] font-bold text-emerald-500/60 uppercase tracking-widest mt-0.5">ENGINE: {GEMINI_MODEL}</span>
+                  </div>
                 </div>
                 {!result && (
                   <div className="flex items-center gap-3">
@@ -191,23 +194,29 @@ const MaturityAgent: React.FC = () => {
               </div>
 
               {!result && (
-                <form onSubmit={handleSubmit} className="p-8 bg-slate-900/50 backdrop-blur-md border-t border-white/5 flex gap-4">
-                  <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder={isTyping ? "Auditor analyseert..." : "Typ uw antwoord..."}
-                    className="flex-1 bg-slate-950/80 border border-white/10 rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-emerald-500/50 transition-all font-medium placeholder:text-slate-700"
-                    disabled={isTyping}
-                  />
-                  <button
-                    type="submit"
-                    disabled={isTyping || !input.trim()}
-                    className="bg-emerald-500 text-slate-950 px-8 py-5 rounded-2xl font-black hover:bg-emerald-400 transition-all active:scale-95 disabled:opacity-20 flex items-center justify-center"
-                  >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
-                  </button>
-                </form>
+                <div className="relative">
+                  <form onSubmit={handleSubmit} className="p-8 bg-slate-900/50 backdrop-blur-md border-t border-white/5 flex gap-4">
+                    <input
+                      type="text"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      placeholder={isTyping ? "Auditor analyseert..." : "Typ uw antwoord..."}
+                      className="flex-1 bg-slate-950/80 border border-white/10 rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-emerald-500/50 transition-all font-medium placeholder:text-slate-700"
+                      disabled={isTyping}
+                    />
+                    <button
+                      type="submit"
+                      disabled={isTyping || !input.trim()}
+                      className="bg-emerald-500 text-slate-950 px-8 py-5 rounded-2xl font-black hover:bg-emerald-400 transition-all active:scale-95 disabled:opacity-20 flex items-center justify-center"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
+                    </button>
+                  </form>
+                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 opacity-30">
+                    <span className="text-[7px] font-bold text-slate-500 uppercase tracking-[0.2em]">Powered by Nexus Intelligence Engine</span>
+                    <span className="text-[7px] font-black text-emerald-500 uppercase tracking-widest">{GEMINI_MODEL}</span>
+                  </div>
+                </div>
               )}
             </div>
           </div>

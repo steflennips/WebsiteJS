@@ -2,6 +2,8 @@
 import { GoogleGenAI } from "@google/genai";
 import { Message } from "../types";
 
+export const GEMINI_MODEL = 'gemini-3-flash-preview';
+
 const SYSTEM_INSTRUCTION = `
 Je bent de "NexusData Senior Auditor". Jouw doel is om de datavolwassenheid van een MKB-bedrijf te bepalen.
 Blijf strikt in je rol. Praat niet over andere zaken dan datavolwassenheid en AI-readiness.
@@ -27,7 +29,6 @@ Begin het gesprek professioneel: introduceer jezelf kort als de NexusData Audito
 `;
 
 export async function chatWithAgent(history: Message[], userInput: string) {
-  // De API_KEY wordt tijdens de build in Vercel gesubstitueerd via de define-configuratie in vite.config.ts
   const apiKey = process.env.API_KEY;
   
   if (!apiKey || apiKey === "undefined" || apiKey === "") {
@@ -38,8 +39,7 @@ export async function chatWithAgent(history: Message[], userInput: string) {
   try {
     const ai = new GoogleGenAI({ apiKey });
     const response = await ai.models.generateContent({
-      // Gebruik van de nieuwste Gemini 3 Flash engine
-      model: 'gemini-3-flash-preview',
+      model: GEMINI_MODEL,
       contents: [
         ...history.map(m => ({ 
           role: m.role, 

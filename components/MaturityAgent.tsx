@@ -127,7 +127,7 @@ const MaturityAgent: React.FC = () => {
                     <div className="space-y-3 mb-8">
                       {result.recommendations.map((rec, i) => (
                         <div key={i} className="flex gap-3 text-sm font-bold bg-slate-950/10 p-3 rounded-lg">
-                          <span className="text-slate-950 mt-0.5 opacity-40">>></span>
+                          <span className="text-slate-950 mt-0.5 opacity-40">{" >> "}</span>
                           {rec}
                         </div>
                       ))}

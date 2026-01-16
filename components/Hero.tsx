@@ -16,25 +16,25 @@ const Hero: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
         <div className="inline-block px-4 py-1 rounded-sm border border-emerald-500/30 bg-emerald-500/5 text-emerald-400 text-[10px] font-bold tracking-[0.3em] uppercase mb-10">
-          NexusData Intelligence // v2.5
+          NexusData Intelligence // Operational Excellence
         </div>
         
         <h1 className="text-6xl md:text-9xl font-heading font-bold text-white tracking-tighter mb-8 leading-[0.9] flex flex-col">
-          <span>DATA IS</span>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-600">STRATEGY.</span>
+          <span>DATA GEDREVEN</span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-600 uppercase">Impact.</span>
         </h1>
         
-        <p className="max-w-xl mx-auto text-lg text-slate-400 mb-14 font-medium leading-relaxed">
-          NexusData helpt het MKB de stap te maken van onderbuikgevoel naar data-gedreven winst door de inzet van slimme AI-architecturen.
+        <p className="max-w-2xl mx-auto text-lg md:text-xl text-slate-400 mb-14 font-medium leading-relaxed">
+          Wij helpen het MKB transformeren van Excel-afhankelijkheid naar AI-gestuurde groei. Ontdek vandaag nog uw potentieel met onze digitale auditor.
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
           <a href="#assessment" className="w-full sm:w-auto px-10 py-5 bg-emerald-500 text-slate-950 rounded-lg font-black text-lg shadow-[0_10px_40px_rgba(16,185,129,0.3)] hover:bg-emerald-400 transition-all hover:-translate-y-1 flex items-center justify-center gap-3">
-            START DATA SCAN
+            START GRATIS DATA SCAN
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
           </a>
           <a href="#diensten" className="w-full sm:w-auto px-10 py-5 border border-white/10 hover:border-emerald-500/50 hover:bg-emerald-500/5 text-white rounded-lg font-bold text-lg transition-all">
-            ONZE EXPERTISE
+            ONTDEK ONZE DIENSTEN
           </a>
         </div>
       </div>

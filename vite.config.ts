@@ -5,8 +5,8 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   define: {
-    // Dit zorgt ervoor dat alle voorkomens van 'process.env.API_KEY' in je code
-    // tijdens de build worden vervangen door de waarde die in Vercel is ingesteld.
+    // Deze vervanging is cruciaal voor Vercel om de API-sleutel vanuit de environment
+    // variabelen naar de browser-code te 'branden' tijdens het bouwen.
     'process.env.API_KEY': JSON.stringify(process.env.API_KEY)
   },
   build: {

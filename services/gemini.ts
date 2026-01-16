@@ -27,7 +27,7 @@ Begin het gesprek professioneel: introduceer jezelf kort als de NexusData Audito
 `;
 
 export async function chatWithAgent(history: Message[], userInput: string) {
-  // De API_KEY wordt tijdens de build in Vercel gesubstitueerd door de waarde uit vite.config.ts
+  // De API_KEY wordt tijdens de build in Vercel gesubstitueerd via de define-configuratie in vite.config.ts
   const apiKey = process.env.API_KEY;
   
   if (!apiKey || apiKey === "undefined" || apiKey === "") {
@@ -38,8 +38,9 @@ export async function chatWithAgent(history: Message[], userInput: string) {
   try {
     const ai = new GoogleGenAI({ apiKey });
     const response = await ai.models.generateContent({
-      // Terug naar het model dat gisteren werkte
-      model: 'gemini-2.5-flash-lite-latest',
+      // We gebruiken 'gemini-3-flash-preview' omdat dit het meest stabiele en krachtige model is voor teksttaken.
+      // De 404-fout duidde erop dat het vorige model-id niet werd herkend.
+      model: 'gemini-3-flash-preview',
       contents: [
         ...history.map(m => ({ 
           role: m.role, 

@@ -28,12 +28,19 @@ Begin het gesprek vriendelijk en stel de eerste vraag.
 `;
 
 export async function chatWithAgent(history: Message[], userInput: string) {
+  // Check of de API key überhaupt aanwezig is in de omgeving
+  const apiKey = process.env.API_KEY;
+  
+  if (!apiKey) {
+    return "Configuratie-fout: De API_KEY ontbreekt in de Vercel Environment Variables. Voeg deze toe in je Vercel dashboard.";
+  }
+
   try {
-    // Initialiseer de AI client binnen de functie om zeker te zijn van de API key beschikbaarheid
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+    const ai = new GoogleGenAI({ apiKey });
     
+    // Gebruik de volledige modelnaam voor de 2.5 Flash preview
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.5-flash-preview-09-2025', 
       contents: [
         ...history.map(m => ({ 
           role: m.role, 
@@ -47,12 +54,27 @@ export async function chatWithAgent(history: Message[], userInput: string) {
       },
     });
 
-    return response.text || "Geen reactie ontvangen van de AI.";
-  } catch (error: any) {
-    console.error("Gemini API Error:", error);
-    if (error?.message?.includes("Requested entity was not found")) {
-       return "Fout: Het model 'gemini-2.5-flash' kon niet worden gevonden. Controleer of de API-key toegang heeft tot dit specifieke model.";
+    if (!response || !response.text) {
+      return "De AI gaf een leeg antwoord terug. Probeer een andere vraag.";
     }
-    return "Excuses, er ging iets mis bij het verbinden met de AI agent. Probeer het later opnieuw.";
+
+    return response.text;
+  } catch (error: any) {
+    console.error("Gemini API Detail Error:", error);
+    
+    // Specifieke foutmeldingen op basis van de error van Google
+    const msg = error?.message || "";
+    
+    if (msg.includes("404") || msg.includes("not found")) {
+      return "Fout: Het model 'gemini-2.5-flash-preview' is niet beschikbaar of de naam is onjuist.";
+    }
+    if (msg.includes("403") || msg.includes("permission")) {
+      return "Toegang geweigerd: Je API-key heeft geen rechten voor dit model of je regio is beperkt.";
+    }
+    if (msg.includes("401") || msg.includes("API key not valid")) {
+      return "Ongeldige API-key: Controleer de key in je Vercel instellingen.";
+    }
+
+    return `Er ging iets mis bij de verbinding: ${msg.substring(0, 100)}...`;
   }
 }

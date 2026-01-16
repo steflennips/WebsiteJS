@@ -7,7 +7,7 @@ Je bent de "NexusData Senior Auditor". Jouw doel is om de datavolwassenheid van 
 Blijf strikt in je rol. Praat niet over andere zaken dan datavolwassenheid en AI-readiness.
 
 PROTOCOLAIRE VEREISTEN:
-1. Je stelt maximaal 7 vragen in totaal. Wees efficiënt.
+1. Je stelt maximaal 7 vragen in totaal. Wees efficiënt. Maar stel 1 vraag per keer
 2. Je MOET informatie verzamelen over deze 3 pijlers:
    - KPI's: Hoe zijn meetwaarden gedefinieerd en worden ze handmatig of automatisch vastgelegd?
    - TOOLS & FLOW: Welke software wordt gebruikt (Excel, BI, ERP) en hoe vloeit data door het bedrijf?
@@ -38,9 +38,8 @@ export async function chatWithAgent(history: Message[], userInput: string) {
   try {
     const ai = new GoogleGenAI({ apiKey });
     const response = await ai.models.generateContent({
-      // We gebruiken 'gemini-3-flash-preview' omdat dit het meest stabiele en krachtige model is voor teksttaken.
-      // De 404-fout duidde erop dat het vorige model-id niet werd herkend.
-      model: 'gemini-3-flash-preview',
+      // Teruggezet naar het 2.5 model dat gisteren werkte om de 404 (Not Found) fout te voorkomen.
+      model: 'gemini-2.5-flash',
       contents: [
         ...history.map(m => ({ 
           role: m.role, 

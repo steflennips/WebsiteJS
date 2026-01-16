@@ -27,19 +27,19 @@ Begin het gesprek professioneel: introduceer jezelf kort als de NexusData Audito
 `;
 
 export async function chatWithAgent(history: Message[], userInput: string) {
-  // Gebruik de API_KEY uit de environment. 
-  // OPMERKING: In Vercel moet deze variabele ingesteld zijn.
+  // De API_KEY wordt tijdens de build in Vercel gesubstitueerd door de waarde uit vite.config.ts
   const apiKey = process.env.API_KEY;
   
-  if (!apiKey || apiKey === "undefined") {
-    console.error("NexusData Error: API_KEY is missing in the environment.");
+  if (!apiKey || apiKey === "undefined" || apiKey === "") {
+    console.error("NexusData Runtime Error: API_KEY is niet gevonden in de client-omgeving.");
     throw new Error("API_KEY_MISSING");
   }
 
   try {
     const ai = new GoogleGenAI({ apiKey });
     const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
+      // Terug naar het model dat gisteren werkte
+      model: 'gemini-2.5-flash-lite-latest',
       contents: [
         ...history.map(m => ({ 
           role: m.role, 
@@ -54,10 +54,10 @@ export async function chatWithAgent(history: Message[], userInput: string) {
     });
 
     const text = response.text;
-    if (!text) throw new Error("Empty response from AI engine");
+    if (!text) throw new Error("Geen antwoord ontvangen van de Nexus Engine.");
     return text;
   } catch (error: any) {
-    console.error("NexusData Engine Failure:", error);
+    console.error("NexusData Engine API Failure:", error);
     throw error;
   }
 }

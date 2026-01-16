@@ -13,7 +13,6 @@ const MaturityAgent: React.FC = () => {
   const [result, setResult] = useState<MaturityResult | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
-  // Bereken stap (elke user + model pair is 1 stap, we beginnen bij stap 1)
   const currentStep = Math.min(7, Math.ceil((messages.length) / 2));
 
   useEffect(() => {
@@ -36,13 +35,11 @@ const MaturityAgent: React.FC = () => {
       const response = await chatWithAgent([...messages, userMessage], userInput);
       setIsTyping(false);
 
-      // Check of er een [RESULT] JSON in het antwoord zit
       const resultMatch = response.match(/\[RESULT\]\s*(\{.*\})/s);
       if (resultMatch) {
         try {
           const parsedResult = JSON.parse(resultMatch[1]);
           setResult(parsedResult);
-          // Haal de JSON uit de tekst voor de weergave in de chat
           const cleanText = response.replace(/\[RESULT\].*/s, '').trim();
           setMessages(prev => [...prev, { role: 'model', text: cleanText }]);
         } catch (err) {
@@ -54,9 +51,9 @@ const MaturityAgent: React.FC = () => {
     } catch (err: any) {
       setIsTyping(false);
       if (err.message === "API_KEY_MISSING") {
-        setError("Systeemfout: De API_KEY is niet geconfigureerd in Vercel. Voeg de variabele 'API_KEY' toe en doe een nieuwe 'Redeploy'.");
+        setError("Systeemfout: De API_KEY is niet geladen. Ga naar Vercel Settings -> Environment Variables, controleer de sleutel 'API_KEY', en klik daarna op 'Redeploy' bij je laatste build.");
       } else {
-        setError("Verbindingsfout met de NexusData Engine. Controleer uw internetverbinding.");
+        setError("Verbindingsfout met de NexusData Engine. Controleer uw internetverbinding of de status van de API.");
       }
     }
   };
@@ -65,8 +62,6 @@ const MaturityAgent: React.FC = () => {
     <section id="assessment" className="py-32 relative">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-12 gap-16 items-start">
-          
-          {/* Linkerkant: Info */}
           <div className="lg:col-span-5 space-y-10">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black tracking-widest uppercase mb-6">
@@ -100,11 +95,8 @@ const MaturityAgent: React.FC = () => {
             </div>
           </div>
 
-          {/* Rechterkant: De Agent Interface */}
           <div className="lg:col-span-7">
             <div className="glass rounded-[2.5rem] border-white/10 overflow-hidden flex flex-col h-[700px] relative shadow-2xl">
-              
-              {/* Header van de chat */}
               <div className="bg-slate-900/80 p-6 border-b border-white/5 flex items-center justify-between backdrop-blur-md z-10">
                 <div className="flex items-center gap-4">
                   <div className="flex gap-1.5">
@@ -128,7 +120,6 @@ const MaturityAgent: React.FC = () => {
                 )}
               </div>
 
-              {/* Berichten area */}
               <div className="flex-1 overflow-y-auto p-8 space-y-6 scrollbar-hide bg-slate-950/30">
                 {messages.map((m, i) => (
                   <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -159,7 +150,6 @@ const MaturityAgent: React.FC = () => {
                   </div>
                 )}
 
-                {/* RESULTATEN DASHBOARD */}
                 {result && (
                   <div className="p-8 bg-emerald-500 rounded-[2rem] text-slate-950 animate-in zoom-in duration-500 shadow-2xl mt-10">
                     <div className="flex flex-col sm:flex-row items-center gap-8 mb-10">
@@ -200,7 +190,6 @@ const MaturityAgent: React.FC = () => {
                 <div ref={chatEndRef} />
               </div>
 
-              {/* Input sectie */}
               {!result && (
                 <form onSubmit={handleSubmit} className="p-8 bg-slate-900/50 backdrop-blur-md border-t border-white/5 flex gap-4">
                   <input

@@ -5,7 +5,7 @@ import { Message, MaturityResult } from '../types';
 
 const MaturityAgent: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'model', text: 'Systeem NexusData v2.5 online. Ik ben uw Senior AI Auditor.\n\nOm uw datavolwassenheid te bepalen en AI-kansen te identificeren, begin ik graag bij de kern: Hoe zijn binnen uw organisatie de belangrijkste KPI’s (kritieke prestatie-indicatoren) momenteel gedefinieerd en hoe worden deze vastgelegd?' }
+    { role: 'model', text: 'Systeem NexusData v3.0 online. Ik ben uw Senior AI Auditor.\n\nOm uw datavolwassenheid te bepalen en AI-kansen te identificeren, begin ik graag bij de kern: Hoe zijn binnen uw organisatie de belangrijkste KPI’s (kritieke prestatie-indicatoren) momenteel gedefinieerd en hoe worden deze vastgelegd?' }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -105,7 +105,7 @@ const MaturityAgent: React.FC = () => {
                     <div className="w-3 h-3 rounded-full bg-emerald-500/50"></div>
                   </div>
                   <div className="h-4 w-px bg-white/10 mx-2"></div>
-                  <span className="text-[10px] font-black tracking-[0.3em] text-slate-500 uppercase">AUDIT_SESSION_v2.5</span>
+                  <span className="text-[10px] font-black tracking-[0.3em] text-slate-500 uppercase">AUDIT_SESSION_v3.0</span>
                 </div>
                 {!result && (
                   <div className="flex items-center gap-3">

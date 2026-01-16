@@ -38,8 +38,8 @@ export async function chatWithAgent(history: Message[], userInput: string) {
   try {
     const ai = new GoogleGenAI({ apiKey });
     const response = await ai.models.generateContent({
-      // Teruggezet naar het 2.5 model dat gisteren werkte om de 404 (Not Found) fout te voorkomen.
-      model: 'gemini-2.5-flash',
+      // Gebruik van de nieuwste Gemini 3 Flash engine
+      model: 'gemini-3-flash-preview',
       contents: [
         ...history.map(m => ({ 
           role: m.role, 

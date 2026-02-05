@@ -50,12 +50,12 @@ const App: React.FC = () => {
           
           <div className="flex gap-10 text-[10px] font-black tracking-[0.2em] uppercase">
             <a href="#diensten" className="hover:text-white transition-colors">DIENSTEN</a>
-            <a href="#assessment" className="hover:text-white transition-colors">DIAGNOSTIC</a>
+            <a href="#assessment" className="hover:text-white transition-colors">DATA SCAN</a>
             <a href="#contact" className="hover:text-white transition-colors">CONTACT</a>
           </div>
           
           <p className="text-[10px] font-bold tracking-[0.2em] uppercase opacity-40">
-            © {new Date().getFullYear()} DEUX2QONNECT INTELLIGENCE UNIT
+            © {new Date().getFullYear()} DEUX2QONNECT
           </p>
         </div>
       </footer>

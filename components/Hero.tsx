@@ -15,10 +15,6 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
-        <div className="inline-block px-4 py-1 rounded-full border border-indigo-500/30 bg-indigo-500/5 text-indigo-300 text-[10px] font-bold tracking-[0.3em] uppercase mb-10">
-          Deux2Qonnect Intelligence // Operational Excellence
-        </div>
-        
         <h1 className="text-6xl md:text-9xl font-heading font-bold text-white tracking-tighter mb-8 leading-[0.9] flex flex-col">
           <span>DATA GEDREVEN</span>
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00a3ff] to-[#7b2ff7] uppercase">Impact.</span>

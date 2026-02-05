@@ -12,10 +12,16 @@ const MaturityAgent: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<MaturityResult | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const isFirstRender = useRef(true);
 
   const currentStep = Math.min(7, Math.ceil((messages.length) / 2));
 
   useEffect(() => {
+    // Voorkom scrollen op de allereerste render zodat de gebruiker bovenaan de pagina begint
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
 

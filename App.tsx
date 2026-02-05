@@ -8,7 +8,7 @@ import Contact from './components/Contact';
 
 const App: React.FC = () => {
   return (
-    <div className="bg-slate-950 min-h-screen selection:bg-emerald-500 selection:text-slate-950">
+    <div className="bg-slate-950 min-h-screen selection:bg-[#7b2ff7] selection:text-white">
       <Navbar />
       <main>
         <Hero />
@@ -20,16 +20,16 @@ const App: React.FC = () => {
       <footer className="bg-slate-950 py-20 border-t border-white/5 text-slate-500">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-[#00a3ff] rounded-lg flex items-center justify-center">
               <span className="text-slate-950 font-black text-sm">2</span>
             </div>
-            <span className="font-bold text-xl tracking-tight text-white uppercase">Deux2<span className="text-emerald-400">Qonnect</span></span>
+            <span className="font-bold text-xl tracking-tight text-white uppercase">Deux2<span className="text-[#7b2ff7]">Qonnect</span></span>
           </div>
           
-          <div className="flex gap-10 text-xs font-black tracking-widest uppercase">
-            <a href="#diensten" className="hover:text-emerald-400 transition-colors">EXPERTISE</a>
-            <a href="#assessment" className="hover:text-emerald-400 transition-colors">DIAGNOSTIC</a>
-            <a href="#contact" className="hover:text-emerald-400 transition-colors">CONTACT</a>
+          <div className="flex gap-10 text-[10px] font-black tracking-[0.2em] uppercase">
+            <a href="#diensten" className="hover:text-white transition-colors">DIENSTEN</a>
+            <a href="#assessment" className="hover:text-white transition-colors">DIAGNOSTIC</a>
+            <a href="#contact" className="hover:text-white transition-colors">CONTACT</a>
           </div>
           
           <p className="text-[10px] font-bold tracking-[0.2em] uppercase opacity-40">

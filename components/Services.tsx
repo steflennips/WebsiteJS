@@ -128,16 +128,16 @@ const Services: React.FC = () => {
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-10 animate-in fade-in duration-300">
           <div className="absolute inset-0 bg-slate-950/95 backdrop-blur-3xl" onClick={() => setSelectedIdx(null)}></div>
           
-          <div className="relative w-full max-w-3xl max-h-[90vh] glass rounded-[3rem] border-white/10 overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)] animate-in slide-in-from-bottom-10 duration-500">
+          <div className="relative w-full max-w-3xl max-h-[90vh] glass rounded-[3rem] border-white/10 overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)] animate-in slide-in-from-bottom-10 duration-500 flex flex-col">
             {/* Close Button */}
             <button 
               onClick={() => setSelectedIdx(null)}
-              className="absolute top-6 right-6 z-20 w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-colors"
+              className="absolute top-6 right-6 z-20 w-12 h-12 rounded-full bg-slate-900/50 border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-colors backdrop-blur-md"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
             </button>
 
-            <div className="overflow-y-auto p-8 md:p-16 space-y-12 bg-slate-950/50 scrollbar-hide">
+            <div className="overflow-y-auto flex-1 p-8 md:p-16 space-y-12 bg-slate-950/50">
               <div className="text-center mb-10">
                 <span className="text-[10px] font-black tracking-[0.4em] text-[#00a3ff] uppercase mb-3 block">{services[selectedIdx].tag}</span>
                 <h4 className="text-4xl md:text-5xl font-black leading-tight tracking-tighter text-white">{services[selectedIdx].title}</h4>

@@ -2,8 +2,8 @@
 import { GoogleGenAI } from "@google/genai";
 import { Message } from "../types";
 
-// We gebruiken gemini-2.5-flash-latest voor de nieuwste performance en snelheid.
-export const GEMINI_MODEL = 'gemini-2.5-flash-latest';
+// We gebruiken gemini-3-flash-preview voor de nieuwste reasoning capaciteiten.
+export const GEMINI_MODEL = 'gemini-3-flash-preview';
 
 const SYSTEM_INSTRUCTION = `
 Je bent de "Deux2Qonnect AI Agent", getraind om MKB-bedrijven te helpen transformeren naar data-gedreven organisaties.

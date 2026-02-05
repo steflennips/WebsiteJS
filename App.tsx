@@ -5,7 +5,6 @@ import Hero from './components/Hero';
 import Services from './components/Services';
 import MaturityAgent from './components/MaturityAgent';
 import Contact from './components/Contact';
-import Team from './components/Team';
 
 const App: React.FC = () => {
   return (
@@ -15,7 +14,6 @@ const App: React.FC = () => {
         <Hero />
         <Services />
         <MaturityAgent />
-        <Team />
         <Contact />
       </main>
       

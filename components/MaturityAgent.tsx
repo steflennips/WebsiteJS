@@ -11,21 +11,34 @@ const MaturityAgent: React.FC = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<MaturityResult | null>(null);
-  const chatEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
   const isFirstRender = useRef(true);
 
   const currentStep = Math.min(7, Math.ceil((messages.length) / 2));
 
   useEffect(() => {
-    // Voorkom scrollen op de allereerste render zodat de gebruiker bovenaan de pagina begint
+    // Voorkom acties op de allereerste render
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
     }
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    
+    // In plaats van scrollIntoView (wat de hele pagina kan laten verspringen),
+    // scrollen we nu specifiek alleen de container van de berichten.
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: "smooth"
+      });
+    }
   }, [messages, isTyping]);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    plus(e);
+  };
+
+  // Helper om event handler logica gescheiden te houden
+  const plus = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isTyping || result) return;
 
@@ -70,10 +83,6 @@ const MaturityAgent: React.FC = () => {
         <div className="grid lg:grid-cols-12 gap-16 items-start">
           <div className="lg:col-span-5 space-y-10">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-[#00a3ff] text-[10px] font-black tracking-widest uppercase mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00a3ff] animate-pulse"></span>
-                AI Diagnostic Unit
-              </div>
               <h3 className="text-5xl md:text-6xl font-heading font-bold text-white mb-8 leading-[1.1]">
                 Bepaal uw <span className="text-gradient">Data DNA</span>.
               </h3>
@@ -134,7 +143,10 @@ const MaturityAgent: React.FC = () => {
                 )}
               </div>
 
-              <div className="flex-1 overflow-y-auto p-8 space-y-6 scrollbar-hide bg-slate-950/30">
+              <div 
+                ref={chatContainerRef}
+                className="flex-1 overflow-y-auto p-8 space-y-6 scrollbar-hide bg-slate-950/30"
+              >
                 {messages.map((m, i) => (
                   <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                     <div className={`max-w-[85%] p-5 rounded-2xl ${
@@ -204,7 +216,6 @@ const MaturityAgent: React.FC = () => {
                     </button>
                   </div>
                 )}
-                <div ref={chatEndRef} />
               </div>
 
               {!result && (

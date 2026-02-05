@@ -31,9 +31,6 @@ const Services: React.FC = () => {
             <h2 className="text-[#00a3ff] font-black tracking-widest uppercase text-sm mb-4">Capabilities</h2>
             <p className="text-4xl md:text-5xl font-black text-white leading-tight">Expertise die uw <br/> resultaat drijft.</p>
           </div>
-          <p className="text-slate-400 max-w-sm text-left font-medium">
-            Wij leveren tastbare data-producten die direct impact hebben op uw dagelijkse operatie, gedreven door de nieuwste AI-architecturen.
-          </p>
         </div>
         
         <div className="grid md:grid-cols-3 gap-6">

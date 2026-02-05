@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import Services from './components/Services';
 import MaturityAgent from './components/MaturityAgent';
 import Contact from './components/Contact';
+import Team from './components/Team';
 
 const App: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC = () => {
         <Hero />
         <Services />
         <MaturityAgent />
+        <Team />
         <Contact />
       </main>
       
@@ -24,6 +26,28 @@ const App: React.FC = () => {
               <span className="text-slate-950 font-black text-sm">2</span>
             </div>
             <span className="font-bold text-xl tracking-tight text-white uppercase">Deux2<span className="text-[#7b2ff7]">Qonnect</span></span>
+          </div>
+          
+          <div className="flex flex-col items-center md:items-start gap-3">
+            <p className="text-[10px] font-black tracking-[0.2em] uppercase opacity-40 mb-1">Connect met de founders</p>
+            <div className="flex gap-6">
+              <a 
+                href="https://www.linkedin.com/in/stef-lennips-38a19271/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-xs font-bold text-slate-400 hover:text-[#00a3ff] transition-colors flex items-center gap-2"
+              >
+                Stef Lennips
+              </a>
+              <a 
+                href="https://www.linkedin.com/in/jacques-van-cittert-793699a/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-xs font-bold text-slate-400 hover:text-[#7b2ff7] transition-colors flex items-center gap-2"
+              >
+                Jacques van Cittert
+              </a>
+            </div>
           </div>
           
           <div className="flex gap-10 text-[10px] font-black tracking-[0.2em] uppercase">

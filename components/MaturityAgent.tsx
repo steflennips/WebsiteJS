@@ -87,7 +87,7 @@ const MaturityAgent: React.FC = () => {
                 Bepaal uw <span className="text-gradient">Data DNA</span>.
               </h3>
               <p className="text-slate-400 text-lg leading-relaxed font-medium">
-                Onze AI Auditor analyseert in maximaal 7 vragen hoe uw organisatie scoort op het gebied van data-volwassenheid en waar de grootste AI-kansen liggen.
+                Onze Agent analyseert uw data-volwassenheid.
               </p>
             </div>
 

@@ -8,6 +8,13 @@ export interface MaturityResult {
   level: number;
   label: string;
   description: string;
+  scores: {
+    kpi: number;      // 1-10
+    infra: number;    // 1-10
+    culture: number;  // 1-10
+  };
+  quickWins: string[];
+  longTermStrategy: string;
   recommendations: string[];
 }
 

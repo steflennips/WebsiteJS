@@ -25,7 +25,6 @@
         color: #f8fafc;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        /* Hardware acceleration hint */
         transform: translateZ(0);
       }
       h1, h2, h3, .font-heading {
@@ -33,7 +32,6 @@
       }
       .glass {
         background: rgba(15, 23, 42, 0.8);
-        /* Safari prestatie optimalisatie: minder blur op mobiel */
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
         border: 1px solid rgba(255, 255, 255, 0.08);
@@ -55,15 +53,42 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
-      /* iOS Safari elastic scroll fix */
       .ios-scroll {
         -webkit-overflow-scrolling: touch;
         overscroll-behavior-y: contain;
       }
-      /* Voorkom tekstselectie tijdens interactie op mobiel */
-      .no-select {
-        -webkit-user-select: none;
-        user-select: none;
+      
+      /* PRINT OPTIMALISATIE */
+      @media print {
+        @page {
+          margin: 1.5cm;
+          size: A4;
+        }
+        body {
+          background: white !important;
+          color: black !important;
+          font-size: 11pt;
+        }
+        .bg-grid, nav, footer, button, #contact, .print-hidden {
+          display: none !important;
+        }
+        .glass {
+          background: transparent !important;
+          border: 1px solid #eee !important;
+          backdrop-filter: none !important;
+          box-shadow: none !important;
+          color: black !important;
+        }
+        .text-gradient {
+          -webkit-text-fill-color: #7b2ff7 !important;
+          color: #7b2ff7 !important;
+        }
+        h3, h4, h5 {
+          color: black !important;
+        }
+        .print-break-inside-avoid {
+          page-break-inside: avoid;
+        }
       }
     </style>
     <script type="importmap">

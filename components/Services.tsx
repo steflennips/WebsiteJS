@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 interface DetailedContent {
   expect: string;
@@ -83,6 +83,19 @@ const services: Service[] = [
 
 const Services: React.FC = () => {
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Zorg dat de pop-up inhoud altijd bovenaan begint bij openen
+  useEffect(() => {
+    if (selectedIdx !== null) {
+      const timer = setTimeout(() => {
+        if (scrollContainerRef.current) {
+          scrollContainerRef.current.scrollTo({ top: 0, behavior: 'instant' });
+        }
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [selectedIdx]);
 
   return (
     <section id="diensten" className="py-24 md:py-32 bg-slate-950 border-t border-white/5 relative overflow-hidden">
@@ -123,57 +136,73 @@ const Services: React.FC = () => {
         </div>
       </div>
 
-      {/* Detail Overlay */}
+      {/* Pop-up Overlay - Perfect Gecentreerd op Hoogte van de Blokken */}
       {selectedIdx !== null && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:p-10 animate-in fade-in duration-300">
-          <div className="absolute inset-0 bg-slate-950/95 backdrop-blur-3xl" onClick={() => setSelectedIdx(null)}></div>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 animate-in fade-in duration-300">
+          {/* Donkere backdrop met blur */}
+          <div className="absolute inset-0 bg-slate-950/90 backdrop-blur-md" onClick={() => setSelectedIdx(null)}></div>
           
-          <div className="relative w-full max-w-3xl max-h-[90vh] glass rounded-[2rem] md:rounded-[3rem] border-white/10 overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)] animate-in slide-in-from-bottom-10 duration-500 flex flex-col">
-            {/* Close Button */}
-            <button 
-              onClick={() => setSelectedIdx(null)}
-              className="absolute top-4 right-4 md:top-6 md:right-6 z-20 w-10 h-10 md:w-12 md:h-12 rounded-full bg-slate-900/50 border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-colors backdrop-blur-md"
-            >
-              <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-            </button>
-
-            <div className="overflow-y-auto flex-1 p-6 md:p-16 space-y-8 md:space-y-12 bg-slate-950/50 scrollbar-hide">
-              <div className="text-center mb-8">
-                <span className="text-[9px] md:text-[10px] font-black tracking-[0.4em] text-[#00a3ff] uppercase mb-2 md:mb-3 block">{services[selectedIdx].tag}</span>
-                <h4 className="text-3xl md:text-5xl font-black leading-tight tracking-tighter text-white">{services[selectedIdx].title}</h4>
-                <div className="w-16 md:w-20 h-1 bg-gradient-to-r from-[#00a3ff] to-[#7b2ff7] mx-auto mt-4 md:mt-6"></div>
+          <div className="relative w-full max-w-4xl max-h-[85vh] glass rounded-[2.5rem] md:rounded-[3.5rem] border-white/10 shadow-2xl animate-in zoom-in-95 duration-300 flex flex-col overflow-hidden">
+            
+            {/* Header / Titel van de Pop-up */}
+            <div className="px-8 md:px-14 py-8 border-b border-white/5 bg-slate-900/40 flex items-center justify-between shrink-0">
+              <div className="space-y-1">
+                <span className="text-[10px] md:text-xs font-black tracking-[0.3em] text-[#00a3ff] uppercase">{services[selectedIdx].tag}</span>
+                <h4 className="text-2xl md:text-4xl font-black text-white tracking-tighter">{services[selectedIdx].title}</h4>
               </div>
+              <button 
+                onClick={() => setSelectedIdx(null)}
+                className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-all hover:scale-110 active:scale-95"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </div>
 
-              <section>
-                <h5 className="text-[#00a3ff] text-[9px] md:text-[10px] font-black uppercase tracking-[0.25em] mb-4 md:mb-6 border-l-2 border-[#00a3ff] pl-4">In het kort</h5>
-                <p className="text-slate-200 text-lg md:text-xl font-medium leading-relaxed">
-                  {services[selectedIdx].details.expect}
-                </p>
+            {/* Scrollbare inhoud - Pop-up focus */}
+            <div 
+              ref={scrollContainerRef}
+              className="overflow-y-auto flex-1 px-8 md:px-14 py-10 md:py-12 scrollbar-hide space-y-12 ios-scroll"
+            >
+              {/* De Focus Tekst */}
+              <section className="animate-in fade-in slide-in-from-bottom-2 duration-500">
+                <div className="p-8 md:p-10 bg-white/[0.03] rounded-[2rem] border-l-4 border-[#00a3ff] shadow-inner">
+                   <p className="text-slate-100 text-lg md:text-2xl font-bold leading-relaxed">
+                    {services[selectedIdx].details.expect}
+                  </p>
+                </div>
               </section>
 
-              <section>
-                <h5 className="text-[#7b2ff7] text-[9px] md:text-[10px] font-black uppercase tracking-[0.25em] mb-4 md:mb-6 border-l-2 border-[#7b2ff7] pl-4">
-                  {services[selectedIdx].details.resultsHeader || "Resultaat"}
+              {/* Aanvullende Details / Checklist */}
+              <section className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+                <h5 className="text-[#7b2ff7] text-[11px] font-black uppercase tracking-[0.25em] mb-8 flex items-center gap-4">
+                  <span className="w-10 h-px bg-gradient-to-r from-[#7b2ff7] to-transparent"></span>
+                  {services[selectedIdx].details.resultsHeader || "Focuspunten & Impact"}
                 </h5>
-                <ul className="space-y-4 md:space-y-5">
+                <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                   {services[selectedIdx].details.results.map((res, i) => (
-                    <li key={i} className="flex gap-4 md:gap-5 items-start text-slate-400 font-medium">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#7b2ff7] mt-[0.6rem] shrink-0 shadow-[0_0_10px_#7b2ff7]"></div>
-                      <span className="text-sm md:text-lg">{res}</span>
+                    <li key={i} className="list-none flex gap-5 items-start text-slate-300 p-5 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="w-7 h-7 rounded-lg bg-[#7b2ff7]/10 flex items-center justify-center shrink-0 mt-0.5">
+                        <svg className="w-4 h-4 text-[#7b2ff7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                      </div>
+                      <span className="text-sm md:text-lg font-medium leading-snug">{res}</span>
                     </li>
                   ))}
-                </ul>
+                </div>
               </section>
 
-              <button 
-                onClick={() => {
-                   setSelectedIdx(null);
-                   document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="w-full py-4 md:py-6 bg-white text-slate-950 font-black rounded-xl md:rounded-2xl shadow-2xl transition-all flex items-center justify-center gap-4 text-base md:text-lg"
-              >
-                PLAN GESPREK
-              </button>
+              {/* Directe Actie in de pop-up */}
+              <div className="pt-8 pb-4">
+                <button 
+                  onClick={() => {
+                     setSelectedIdx(null);
+                     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="w-full py-6 bg-gradient-to-r from-[#00a3ff] to-[#7b2ff7] text-white font-black rounded-2xl shadow-2xl transition-all hover:scale-[1.01] hover:brightness-110 active:scale-[0.98] flex items-center justify-center gap-4 text-base md:text-xl uppercase tracking-widest group"
+                >
+                  BESPREEK DEZE OPLOSSING
+                  <svg className="w-6 h-6 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-5 5m5-5H6" /></svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>

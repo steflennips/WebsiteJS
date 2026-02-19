@@ -1,10 +1,10 @@
 
 import React from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import MaturityAgent from './components/MaturityAgent';
-import Contact from './components/Contact';
+import Navbar from './components/Navbar.tsx';
+import Hero from './components/Hero.tsx';
+import Services from './components/Services.tsx';
+import MaturityAgent from './components/MaturityAgent.tsx';
+import Contact from './components/Contact.tsx';
 
 const App: React.FC = () => {
   return (

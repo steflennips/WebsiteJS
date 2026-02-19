@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 const Logo: React.FC = () => (
-  <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="28" height="28" className="md:w-10 md:h-10 shrink-0" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" stopColor="#00a3ff" />
@@ -23,7 +23,6 @@ const Navbar: React.FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
 
-      // Detecteer welke sectie in beeld is
       const sections = ['diensten', 'assessment', 'contact'];
       let currentSection = '';
       
@@ -31,7 +30,6 @@ const Navbar: React.FC = () => {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          // Als de bovenkant van de sectie in de buurt van de bovenkant van het scherm is
           if (rect.top <= 150 && rect.bottom >= 150) {
             currentSection = section;
             break;
@@ -41,8 +39,8 @@ const Navbar: React.FC = () => {
       setActiveSection(currentSection);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -56,12 +54,12 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'py-4' : 'py-8'}`}>
-      <div className="max-w-7xl mx-auto px-6">
-        <div className={`flex justify-between items-center transition-all duration-500 px-6 py-3 rounded-2xl ${isScrolled ? 'glass shadow-2xl border-white/10' : ''}`}>
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'py-1 md:py-4' : 'py-3 md:py-8'}`}>
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
+        <div className={`flex justify-between items-center transition-all duration-500 px-3 md:px-6 py-2 md:py-3 rounded-xl md:rounded-2xl ${isScrolled ? 'glass shadow-2xl border-white/10' : ''}`}>
+          <div className="flex items-center gap-2 md:gap-3 cursor-pointer shrink-0" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
             <Logo />
-            <span className="font-bold text-2xl tracking-tight text-white">Deux2<span className="text-[#7b2ff7]">Qonnect</span></span>
+            <span className="font-bold text-base md:text-2xl tracking-tight text-white whitespace-nowrap">Deux2<span className="text-[#7b2ff7]">Qonnect</span></span>
           </div>
           
           <div className="hidden lg:flex items-center space-x-10">
@@ -86,6 +84,15 @@ const Navbar: React.FC = () => {
               }`}
             >
               START IMPACT
+            </a>
+          </div>
+
+          <div className="lg:hidden">
+            <a 
+              href="#assessment" 
+              className="bg-gradient-to-r from-[#00a3ff] to-[#7b2ff7] text-white px-3 py-1.5 rounded-lg font-black text-[9px] uppercase tracking-wider shadow-lg whitespace-nowrap"
+            >
+              SCAN
             </a>
           </div>
         </div>
